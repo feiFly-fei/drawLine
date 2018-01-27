@@ -1,0 +1,205 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+html, body{
+    height: 100%;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.content{
+    font-size: 14px;
+    color: #333;
+}
+
+.content .top{
+    height: 80px;
+    background: #f4f4f4;
+}
+
+.content .left-part{
+    float: left;
+    width: 15%;
+    height: 100%;
+    padding: 10px;
+}
+
+.mgR10{
+    margin-right: 10px;
+}
+
+.left-part .list-group{
+    max-width: 200px;
+    max-height: 500px;
+}
+
+.left-part .list-group li{
+    cursor: pointer;
+}
+
+.left-part .list-icon{
+    display: inline-block;
+    width: 18px !important;
+    height: 18px;
+    vertical-align: top;
+    background-image: url("../images/tree-logo.png");
+    background-repeat: no-repeat;
+    -webkit-background-size:51px 15px;
+    background-size:51px 15px;
+}
+
+.list-icon.icon1{
+    background-position: 3px 1px;
+}
+
+.list-icon.icon2{
+    background-position: -16px 1px;
+}
+
+.list-icon.icon3{
+    background-position: -34px 1px;
+}
+
+.content .right-part{
+    float: right;
+    width: 85%;
+    padding: 10px;
+}
+
+.bigdata-panel{
+    width: 580px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.bigdata-panel .panel-body{
+    padding: 0px 14px;
+}
+
+.row.bg-gray{
+    background: #ebebeb;
+}
+
+.bigdata-panel .row{
+    line-height: 40px;
+}
+
+.bigdata-panel .row>div{
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.bigdata-panel .row>div:last-child{
+    border-right: none;
+}
+
+.bigdata-panel .row:last-child>div{
+    border-bottom: none;
+}
+
+.circle-wrap{
+    display: block;
+    width: 70px;
+    height: 95px;
+    padding: 10px 0px;
+    color: #333;
+}
+
+a.circle-wrap:hover,
+a.circle-wrap:active,
+a.circle-wrap:focus{
+    color: #333;
+    text-decoration: none;
+}
+
+.selected{
+    background: #ccc;
+}
+
+.target-wrap{
+    font-size: 0;
+}
+
+.main-target-wrap{
+    display: inline-block;
+    vertical-align: top;
+    width: 140px;
+    height: 300px;;
+}
+
+.main-target,
+.item-text{
+    display: inline-block;
+    width: 140px;
+    padding: 5px;
+    font-size: 14px;
+    border-left: 1px solid #3385ff;
+    background: #f3f3f3;
+    vertical-align: middle;
+    margin-bottom: 30px;
+}
+
+.relate-target{
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 140px);
+    height: 600px;
+    position: relative;
+}
+
+.relate-target .item{
+    width: 500px;
+    margin: 0 0 30px;
+}
+
+.relation{
+    width: 360px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.relation .imgBox{
+    width: 50px;
+    height: 600px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.relation img{
+    height: 30px;
+    width: 50px;
+    margin-bottom: 30px;
+}
+
+.relation-text-box{
+    width: 140px;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.table-wrap{
+    width: 600px;
+}
+
+.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner{
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+}
+
+.relationLine{
+    width: 360px;
+    height: 1px;
+    position: absolute;
+}

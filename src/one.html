@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+<div class="content clearfix">
+    <div class="top"></div>
+    <div class="left-part">
+        <ul class="list-group">
+            <li class="list-group-item original-drag-li" draggable="true" ondragstart="startDrag(event)">
+                <i class="list-icon icon1"></i>
+                订单
+                <span class="glyphicon glyphicon-minus pull-right remove-li" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus pull-right mgR10" aria-hidden="true"></span>
+            </li>
+            <li class="list-group-item original-drag-li" draggable="true" ondragstart="startDrag(event)">
+                <i class="list-icon icon2"></i>
+                退货
+                <span class="glyphicon glyphicon-minus pull-right remove-li" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus pull-right mgR10" aria-hidden="true"></span>
+            </li>
+            <li class="list-group-item original-drag-li" draggable="true" ondragstart="startDrag(event)">
+                <i class="list-icon icon3"></i>
+                销售人员
+                <span class="glyphicon glyphicon-minus pull-right remove-li" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus pull-right mgR10" aria-hidden="true"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="right-part">
+       <div class="target-wrap" ondrop="decideDrop(event)" ondragover="allowDrop(event)">
+           <div class="main-target-wrap">
+           </div>
+           <div class="relate-target">
+                <div class="relation">
+                    <canvas class="lineOne" id="canvasOne" width="155" height="1200"></canvas>
+                    <div class="imgBox">
+
+                    </div>
+                    <canvas class="lineTwo" id="canvasTwo" width="155" height="1200"></canvas>
+                </div>
+               <div class="relation-text-box">
+
+               </div>
+           </div>
+       </div>
+      </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="myAlert">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                   <strong>已有关系 不能替换</strong>
+               </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="jquery.js"></script>
+<script>
+    function startDrag(ev) {
+        ev.dataTransfer.setData("Text",ev.target.innerText);
+    }
+    
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function decideDrop(ev) {
+        ev.preventDefault();
+        var length = $('.main-target').length;
+        if(length == 0){
+            dropToMain(ev);
+        }else {
+            dropToRelate(ev);
+        }
+    }
+
+    function dropToMain(ev) {
+        var data=ev.dataTransfer.getData("Text");
+        var _html = '<div class="main-target">' + data + '</div>';
+        $('.main-target-wrap').width('auto').append(_html);
+    }
+
+    function dropToRelate(ev) {
+        //画关系线
+        drawLineOne(document.getElementById('canvasOne'), 'begin');
+        drawLineOne(document.getElementById('canvasTwo'), 'end');
+
+        //插入图片 以及图片初始化点击事件
+        var _img = $('<img src="inner.png">');
+        $('.imgBox').append(_img);
+        _img.click(showRelationBox);
+        //写入数据
+        var data = ev.dataTransfer.getData('Text');
+        var _html = '<div class="item-text">' + data + '</div>';
+        $('.relation-text-box').append(_html);
+    }
+
+    function drawLineOne(canvas, flag) {
+        var context = canvas.getContext('2d');
+        var position = {};
+        if(flag == "begin"){
+            position = getCanvasOnePosition();
+        }else {
+            position = getCanvasTwoPosition();
+        }
+        context.beginPath();
+        context.moveTo(position.beginX, position.beginY);
+        context.lineTo(position.endX, position.endY);
+        if(position.endX2 && position.endY2){
+            context.lineTo(position.endX2, position.endY2);
+        }
+        context.strokeStyle = "#333";
+        context.stroke();
+    }
+
+    /**
+     * 左侧关系线
+     * @returns {{beginX: *, beginY: *, endX: *, endY: *}}
+     */
+    function getCanvasOnePosition() {
+        var imgLength = $('.imgBox img').length;
+        var beginX = (imgLength == 0) ? 0 : 77,
+            beginY = (imgLength == 0) ? 15 : (15 + 60 * (imgLength-1)),
+            endX = (imgLength == 0) ? 155 : 77,
+            endY = 60*imgLength + 15;
+        var position = {beginX: beginX, beginY: beginY, endX: endX, endY: endY};
+        if(imgLength > 0){
+            position.endX2 = 155;
+            position.endY2 = endY;
+        }
+        return position;
+    }
+
+    function getCanvasTwoPosition() {
+        var imgLength = $('.imgBox img').length;
+        var endY = 15 + 60*imgLength
+        return {beginX: 0, beginY: endY, endX: 155, endY: endY}
+    }
+
+    function showRelationBox() {
+        console.log($(this))
+    }
+</script>
+</body>
+</html>
